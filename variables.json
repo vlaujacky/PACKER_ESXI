@@ -1,0 +1,14 @@
+{
+    "esxi_host": "",
+    "esxi_datastore": "datastore1",
+    "esxi_username": "",
+    "esxi_password": "",
+  
+    "ks_file": "fed35_ks.cfg",
+    "hostname": "fedora_packer",
+  
+    "cpus": "2",
+    "memory":"4096",
+    "disk_size": "30720"
+  }
+  

@@ -1,0 +1,52 @@
+{
+    "builders": [{
+      "name": "{{user `hostname`}}",
+      "vm_name": "{{user `hostname`}}",
+      "type": "vmware-iso",
+      "guest_os_type": "fedora-64",
+      "tools_upload_flavor": "linux",
+      "headless": false,
+  
+      "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/35/Server/x86_64/iso/Fedora-Server-dvd-x86_64-35-1.2.iso",
+      "iso_checksum": "sha256:3fe521d6c7b12c167f3ac4adab14c1f344dd72136ba577aa2bcc4a67bcce2bc6",
+  
+      "cpus": "{{user `cpus`}}",
+      "memory": "{{user `memory`}}",
+      "disk_size": "{{user `disk_size`}}",
+      "disk_type_id": "thin",
+
+      "ssh_username": "localadm",
+      "ssh_password": "rootroot",
+      "ssh_timeout": "15m",
+      
+
+     "cd_files": [
+        "ks_conf/{{user `ks_file`}}"
+      ],
+      "cd_label": "cidata",
+
+      "boot_command": [
+       	"<wait><up><tab><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+	"vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=Fedora-S-dvd-x86_64-35 inst.ks=hd:/dev/sr1:/{{user `ks_file`}} quiet",
+	"<enter>"
+      ],
+
+      "shutdown_command": "",
+  
+      "remote_type": "esx5",
+      "remote_host": "{{user `esxi_host`}}",
+      "remote_datastore": "{{user `esxi_datastore`}}",
+      "remote_username": "{{user `esxi_username`}}",
+      "remote_password": "{{user `esxi_password`}}",
+      "keep_registered": true,
+      "vnc_disable_password": true,
+      
+  
+      "vmx_data": {
+        "ethernet0.networkName": "VM Network"
+      }
+    }]
+  }
